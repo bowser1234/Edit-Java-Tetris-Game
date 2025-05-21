@@ -14,6 +14,8 @@ Website: https://zetcode.com
 public class Tetris extends JFrame {
 
     private JLabel statusbar;
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
 
     public Tetris() {
 
@@ -21,22 +23,32 @@ public class Tetris extends JFrame {
     }
 
     private void initUI() {
-
         statusbar = new JLabel(" 0");
+
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        TitleScreen titleScreen = new TitleScreen(this);
+        GameScreen gameScreen = new GameScreen(this);
+
+        mainPanel.add(titleScreen, "Title");
+        mainPanel.add(gameScreen, "Game");
+
+        add(mainPanel);
         add(statusbar, BorderLayout.SOUTH);
 
-        var board = new Board(this);
-        add(board);
-        board.start();
-
-        setTitle("Tetris");
         setSize(200, 400);
+        setTitle("Tetris");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
-    JLabel getStatusBar() {
+    public void showGameScreen() {
+        cardLayout.show(mainPanel, "Game");
+        ((GameScreen) mainPanel.getComponent(1)).startGame();
+    }
 
+    public JLabel getStatusBar() {
         return statusbar;
     }
 
