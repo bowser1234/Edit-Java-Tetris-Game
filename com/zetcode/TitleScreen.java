@@ -4,17 +4,53 @@ import java.awt.*;
 import javax.swing.*;
 
 public class TitleScreen extends JPanel {
+    private JPanel menuPanel;
+    private JButton pressBtn;
 
     public TitleScreen(Tetris parent) {
         setLayout(new BorderLayout());
 
+        // 타이틀
         JLabel title = new JLabel("TETRIS", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 36));
-        add(title, BorderLayout.CENTER);
+        add(title, BorderLayout.NORTH);
 
-        JButton startButton = new JButton("Start Game");
-        startButton.setFont(new Font("Arial", Font.PLAIN, 18));
-        startButton.addActionListener(e->parent.showGameScreen());
-        add(startButton, BorderLayout.SOUTH);
+        // Press Start 버튼만 있는 패널
+        pressBtn = new JButton("Press Start");
+        pressBtn.setFont(new Font("Arial", Font.PLAIN, 24));
+        pressBtn.addActionListener(e -> showMenu());
+
+        JPanel initialPanel = new JPanel();
+        initialPanel.add(pressBtn);
+        add(initialPanel, BorderLayout.CENTER);
+
+        // 메뉴 패널 숨김
+        menuPanel = new JPanel();
+        menuPanel.setLayout(new GridLayout(4, 1, 10, 10));
+        menuPanel.setVisible(false);  // Press 버튼을 누를 때 까지 보이지 않게
+
+        JButton startBtn = new JButton("Start Game");
+        JButton loadBtn = new JButton("Load");
+        JButton optionBtn = new JButton("Option");
+        JButton exitBtn = new JButton("Exit");
+
+        startBtn.addActionListener(e -> parent.showGameScreen());
+        loadBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "로드 기능은 아직 구현되지 않았습니다."));
+        optionBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "옵션은 아직 구현되지 않았습니다."));
+        exitBtn.addActionListener(e -> System.exit(0));
+
+        for (JButton b : new JButton[]{startBtn, loadBtn, optionBtn, exitBtn}) {
+            b.setFont(new Font("Arial", Font.PLAIN, 18));
+            menuPanel.add(b);
+        }
+
+        add(menuPanel, BorderLayout.SOUTH);
+    }
+
+    private void showMenu() {
+        pressBtn.setVisible(false);  // Start 버튼 숨기기
+        menuPanel.setVisible(true);     // 메뉴 버튼 표시
+        revalidate();
+        repaint();
     }
 }
