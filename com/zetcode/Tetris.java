@@ -1,24 +1,19 @@
 package com.zetcode;
 
+import java.awt.*;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-/*
-Java Tetris game clone
-
-Author: Jan Bodnar
-Website: https://zetcode.com
- */
 public class Tetris extends JFrame {
 
-    private JLabel statusbar;
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    private JLabel statusbar;
 
     public Tetris() {
-
         initUI();
     }
 
@@ -53,10 +48,8 @@ public class Tetris extends JFrame {
     }
 
     public static void main(String[] args) {
-
         EventQueue.invokeLater(() -> {
-
-            var game = new Tetris();
+            Tetris game = new Tetris();
             game.setVisible(true);
         });
     }
