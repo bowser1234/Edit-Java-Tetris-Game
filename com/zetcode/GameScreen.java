@@ -14,6 +14,8 @@ public class GameScreen extends JPanel {
     }
 
     public void startGame() {
+        board.setFocusable(true);
+        board.requestFocusInWindow();  // 키 입력 요청
         board.start();
     }
 }
