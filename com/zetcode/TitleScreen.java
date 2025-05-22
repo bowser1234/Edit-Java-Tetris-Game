@@ -2,55 +2,55 @@ package com.zetcode;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-public class TitleScreen extends JPanel {
-    private JPanel menuPanel;
-    private JButton pressBtn;
+public class Tetris extends JFrame {
 
-    public TitleScreen(Tetris parent) {
-        setLayout(new BorderLayout());
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    private JLabel statusbar;
 
-        // 타이틀
-        JLabel title = new JLabel("TETRIS", SwingConstants.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 36));
-        add(title, BorderLayout.NORTH);
-
-        // Press Start 버튼만 있는 패널
-        pressBtn = new JButton("Press Start");
-        pressBtn.setFont(new Font("Arial", Font.PLAIN, 24));
-        pressBtn.addActionListener(e -> showMenu());
-
-        JPanel initialPanel = new JPanel();
-        initialPanel.add(pressBtn);
-        add(initialPanel, BorderLayout.CENTER);
-
-        // 메뉴 패널 숨김
-        menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(4, 1, 10, 10));
-        menuPanel.setVisible(false);  // Press 버튼을 누를 때 까지 보이지 않게
-
-        JButton startBtn = new JButton("Start Game");
-        JButton loadBtn = new JButton("Load");
-        JButton optionBtn = new JButton("Option");
-        JButton exitBtn = new JButton("Exit");
-
-        startBtn.addActionListener(e -> parent.showGameScreen());
-        loadBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "로드 기능은 아직 구현되지 않았습니다."));
-        optionBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "옵션은 아직 구현되지 않았습니다."));
-        exitBtn.addActionListener(e -> System.exit(0));
-
-        for (JButton b : new JButton[]{startBtn, loadBtn, optionBtn, exitBtn}) {
-            b.setFont(new Font("Arial", Font.PLAIN, 18));
-            menuPanel.add(b);
-        }
-
-        add(menuPanel, BorderLayout.SOUTH);
+    public Tetris() {
+        initUI();
     }
 
-    private void showMenu() {
-        pressBtn.setVisible(false);  // Start 버튼 숨기기
-        menuPanel.setVisible(true);     // 메뉴 버튼 표시
-        revalidate();
-        repaint();
+    private void initUI() {
+        statusbar = new JLabel(" 0");
+
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+
+        TitleScreen titleScreen = new TitleScreen(this);
+        GameScreen gameScreen = new GameScreen(this);
+
+        mainPanel.add(titleScreen, "Title");
+        mainPanel.add(gameScreen, "Game");
+
+        add(mainPanel);
+        add(statusbar, BorderLayout.SOUTH);
+
+        setSize(200, 400);
+        setTitle("Tetris");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+    }
+
+    public void showGameScreen() {
+        cardLayout.show(mainPanel, "Game");
+        ((GameScreen) mainPanel.getComponent(1)).startGame();
+    }
+
+    public JLabel getStatusBar() {
+        return statusbar;
+    }
+
+    public static void main(String[] args) {
+        EventQueue.invokeLater(() -> {
+            Tetris game = new Tetris();
+            game.setVisible(true);
+        });
     }
 }
