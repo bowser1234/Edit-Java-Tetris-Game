@@ -25,9 +25,11 @@ public class Tetris extends JFrame {
 
         TitleScreen titleScreen = new TitleScreen(this);
         GameScreen gameScreen = new GameScreen(this);
+        OptionScreen optionScreen = new OptionScreen(this);
 
         mainPanel.add(titleScreen, "Title");
         mainPanel.add(gameScreen, "Game");
+        mainPanel.add(optionScreen, "Option");
 
         add(mainPanel);
         add(statusbar, BorderLayout.SOUTH);
@@ -38,9 +40,20 @@ public class Tetris extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    // 타이틀 화면
+    public void showTitleScreen() {
+        cardLayout.show(mainPanel, "Title");
+    }
+
+    // 게임 시작
     public void showGameScreen() {
         cardLayout.show(mainPanel, "Game");
         ((GameScreen) mainPanel.getComponent(1)).startGame();
+    }
+
+    // 옵션 화면
+    public void showOptionScreen() {
+        cardLayout.show(mainPanel, "Option");
     }
 
     public JLabel getStatusBar() {
