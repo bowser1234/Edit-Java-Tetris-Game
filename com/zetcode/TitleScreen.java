@@ -38,7 +38,7 @@ public class TitleScreen extends JPanel {
         startBtn.addActionListener(e -> parent.showGameScreen());
         loadBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "로드 기능은 아직 구현안 됨."));
         scoreRecBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "점수 기록 아직 구현 안 됨."));
-        optionBtn.addActionListener(e -> showOption());
+        optionBtn.addActionListener(e -> parent.showOptionScreen());            // 옵션 화면
         exitBtn.addActionListener(e -> System.exit(0));
 
         for (JButton b : new JButton[]{startBtn, loadBtn,scoreRecBtn, optionBtn, exitBtn}) {
@@ -52,16 +52,6 @@ public class TitleScreen extends JPanel {
     private void showMenu() {
         pressBtn.setVisible(false);  // Start 버튼 숨기기
         menuPanel.setVisible(true);     // 메뉴 버튼 표시
-        revalidate();
-        repaint();
-    }
-
-    // option (unfinished)
-    private void showOption() {
-        menuPanel.setVisible(false);
-
-        keySetBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "키설정 기능은 아직 구현 안됨."));
-        
         revalidate();
         repaint();
     }
