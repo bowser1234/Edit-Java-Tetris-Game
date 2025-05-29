@@ -29,19 +29,21 @@ public class TitleScreen extends JPanel {
         menuPanel.setLayout(new GridLayout(4, 1, 10, 10));
         menuPanel.setVisible(false);  // Press 버튼을 누를 때 까지 보이지 않게
 
-        JButton startBtn = new JButton("Start Game");
+        JButton singleBtn = new JButton("1P Game");
+        JButton secondPlayBtn = new JButton("2P Game");
         JButton loadBtn = new JButton("Load");
         JButton scoreRecBtn = new JButton("Score Record");
         JButton optionBtn = new JButton("Option");
         JButton exitBtn = new JButton("Exit");
 
-        startBtn.addActionListener(e -> parent.showGameScreen());
+        singleBtn.addActionListener(e -> parent.showGameScreen());
+        secondPlayBtn.addActionListener(e -> parent.showGameScreen());        // 임시
         loadBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "로드 기능은 아직 구현안 됨."));
         scoreRecBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "점수 기록 아직 구현 안 됨."));
         optionBtn.addActionListener(e -> parent.showOptionScreen());            // 옵션 화면
         exitBtn.addActionListener(e -> System.exit(0));
 
-        for (JButton b : new JButton[]{startBtn, loadBtn,scoreRecBtn, optionBtn, exitBtn}) {
+        for (JButton b : new JButton[]{singleBtn, secondPlayBtn, loadBtn, scoreRecBtn, optionBtn, exitBtn}) {
             b.setFont(new Font("Arial", Font.PLAIN, 18));
             menuPanel.add(b);
         }
