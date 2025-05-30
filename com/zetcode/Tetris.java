@@ -2,10 +2,6 @@ package com.zetcode;
 
 import java.awt.*;
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class Tetris extends JFrame {
 
@@ -26,15 +22,18 @@ public class Tetris extends JFrame {
         TitleScreen titleScreen = new TitleScreen(this);
         GameScreen gameScreen = new GameScreen(this);
         OptionScreen optionScreen = new OptionScreen(this);
+        Resolution resolutionScreen = new Resolution(this);
+
 
         mainPanel.add(titleScreen, "Title");
         mainPanel.add(gameScreen, "Game");
         mainPanel.add(optionScreen, "Option");
+        mainPanel.add(resolutionScreen, "Resolution");
 
         add(mainPanel);
         add(statusbar, BorderLayout.SOUTH);
 
-        setSize(200, 400);
+        setSize(1280, 720);
         setTitle("Tetris");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -54,6 +53,10 @@ public class Tetris extends JFrame {
     // 옵션 화면
     public void showOptionScreen() {
         cardLayout.show(mainPanel, "Option");
+    }
+
+    public void showResolutionScreen() {
+        cardLayout.show(mainPanel, "Resolution");
     }
 
     public JLabel getStatusBar() {
