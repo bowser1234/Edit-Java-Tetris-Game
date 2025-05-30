@@ -28,6 +28,8 @@ public class Board extends JPanel {
     private JLabel statusbar;
     private Shape curPiece;
     private Tetrominoe[] board;
+    private Shape holdPiece = null;  // 현재 홀드된 블록
+    private boolean holdUsed = false; // 이번 턴에 이미 홀드했는지 여부
 
     public Board(Tetris parent) {
         initBoard(parent);
@@ -127,6 +129,7 @@ public class Board extends JPanel {
                         curPiece.getShape());
             }
         }
+        
     }
 
     private void dropDown() {
@@ -193,6 +196,9 @@ public class Board extends JPanel {
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
         }
+        
+        holdUsed = false; // 다음 블록에서 다시 홀드 가능
+        
     }
 
     private boolean tryMove(Shape newPiece, int newX, int newY) {
@@ -316,6 +322,25 @@ public class Board extends JPanel {
             oneLineDown();
         }
     }
+    
+    private void holdBlock() {
+        if (holdUsed) return; // 한 번만 가능
+
+        if (holdPiece == null) {
+            holdPiece = curPiece;
+            newPiece(); // 새로운 블록 가져옴
+        } else {
+            Shape temp = curPiece;
+            curPiece = holdPiece;
+            holdPiece = temp;
+            curX = BOARD_WIDTH / 2 + 1;
+            curY = BOARD_HEIGHT - 1 + curPiece.minY();
+            tryMove(curPiece, curX, curY); // 재배치
+        }
+
+        holdUsed = true;
+        repaint(); // 다시 그림
+    }
 
     class TAdapter extends KeyAdapter {
 
@@ -339,6 +364,8 @@ public class Board extends JPanel {
                 case KeyEvent.VK_UP -> tryMove(curPiece.rotateLeft(), curX, curY);
                 case KeyEvent.VK_SPACE -> dropDown();
                 case KeyEvent.VK_D -> oneLineDown();
+                case KeyEvent.VK_C -> holdBlock();
+
             }
         }
     }
