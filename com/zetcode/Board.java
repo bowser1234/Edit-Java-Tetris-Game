@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,34 +30,37 @@ public class Board extends JPanel {
     private Tetrominoe[] board;
 
     public Board(Tetris parent) {
-
         initBoard(parent);
     }
 
     private void initBoard(Tetris parent) {
-
         setFocusable(true);
         statusbar = parent.getStatusBar();
         addKeyListener(new TAdapter());
     }
 
-    private int squareWidth() {
+    @Override
+    public Dimension getPreferredSize() {
+        // 게임 보드의 고정 크기를 1:2로
+        int squareSize = 30; // 각 사각형의 크기
+        int width = BOARD_WIDTH * squareSize;
+        int height = BOARD_HEIGHT * squareSize;
+        return new Dimension(width, height);
+    }
 
+    private int squareWidth() {
         return (int) getSize().getWidth() / BOARD_WIDTH;
     }
 
     private int squareHeight() {
-
         return (int) getSize().getHeight() / BOARD_HEIGHT;
     }
 
     private Tetrominoe shapeAt(int x, int y) {
-
         return board[(y * BOARD_WIDTH) + x];
     }
 
     void start() {
-
         curPiece = new Shape();
         board = new Tetrominoe[BOARD_WIDTH * BOARD_HEIGHT];
 
@@ -90,6 +94,9 @@ public class Board extends JPanel {
     }
 
     private void doDrawing(Graphics g) {
+
+        g.setColor(Color.BLACK);                            // 게임 화면 색 설정
+        g.fillRect(0, 0, getWidth(), getHeight());      // 게임화면 색 채우기
 
         var size = getSize();
         int boardTop = (int) size.getHeight() - BOARD_HEIGHT * squareHeight();
