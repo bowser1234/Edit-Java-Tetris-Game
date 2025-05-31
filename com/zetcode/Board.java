@@ -44,9 +44,8 @@ public class Board extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         // 게임 보드의 고정 크기를 1:2로
-        int squareSize = 30; // 각 사각형의 크기
-        int width = BOARD_WIDTH * squareSize;
-        int height = BOARD_HEIGHT * squareSize;
+        int width = BOARD_WIDTH * 25;
+        int height = BOARD_HEIGHT * 25;
         return new Dimension(width, height);
     }
 
