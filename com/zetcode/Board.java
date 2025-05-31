@@ -44,8 +44,8 @@ public class Board extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         // 게임 보드의 고정 크기를 1:2로
-        int width = BOARD_WIDTH * 25;
-        int height = BOARD_HEIGHT * 25;
+        int width = BOARD_WIDTH * 22;
+        int height = BOARD_HEIGHT * 22;
         return new Dimension(width, height);
     }
 
@@ -194,6 +194,26 @@ public class Board extends JPanel {
 
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
+            
+            // 게임오버 3초 후 게임 오버 메시지 표시
+            Timer gameOverWindows = new Timer(3000, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    int choice = JOptionPane.showConfirmDialog(
+                            Board.this,
+                            "게임 오버! 처음화면으로?",
+                            "END",
+                            JOptionPane.YES_NO_OPTION
+                    );
+
+                    if (choice == JOptionPane.YES_OPTION) {            // 만약 '예'를 누르면 처음 화면으로 
+                        ((Tetris) SwingUtilities.getWindowAncestor(Board.this)).showTitleScreen();
+                    }
+                }
+            });
+
+            gameOverWindows.setRepeats(false);      // 타이머를 한 번만 실행
+            gameOverWindows.start();                // 게임 오버 창 나타남.
         }
         
         holdUsed = false; // 다음 블록에서 다시 홀드 가능
