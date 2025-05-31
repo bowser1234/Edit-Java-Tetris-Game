@@ -24,8 +24,9 @@ public class OptionScreen extends JPanel {
 
         // 화면 해상도 설정
         JButton winResizeSetBtn = new JButton("win size setting");
-        winResizeSetBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "해상도 설정 기능은 아직 구현 안됨."));
+        winResizeSetBtn.addActionListener(e -> parent.showResolutionScreen());
         add(winResizeSetBtn);
+
 
         // 돌아가기 버튼
         JButton backButton = new JButton("Return");
