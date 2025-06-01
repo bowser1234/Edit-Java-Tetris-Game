@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
@@ -373,19 +374,28 @@ public class Board extends JPanel {
 
             int keycode = e.getKeyCode();
 
-            // Java 12 switch expressions
-            switch (keycode) {
+            // Board 클래스의 부모 Tetris 프레임을 가져옴
+            Tetris parent = (Tetris) SwingUtilities.getWindowAncestor(Board.this);
 
-                case KeyEvent.VK_P -> pause();
-                case KeyEvent.VK_LEFT -> tryMove(curPiece, curX - 1, curY);
-                case KeyEvent.VK_RIGHT -> tryMove(curPiece, curX + 1, curY);
-                case KeyEvent.VK_DOWN -> tryMove(curPiece.rotateRight(), curX, curY);
-                case KeyEvent.VK_UP -> tryMove(curPiece.rotateLeft(), curX, curY);
-                case KeyEvent.VK_SPACE -> dropDown();
-                case KeyEvent.VK_D -> oneLineDown();
-                case KeyEvent.VK_C -> holdBlock();
-
+            // 각 키에 대해 지정된 동작을 실행
+            if (keycode == parent.pauseKey) {
+                pause();
+            } else if (keycode == parent.moveLeftKey) {
+                tryMove(curPiece, curX - 1, curY);
+            } else if (keycode == parent.moveRightKey) {
+                tryMove(curPiece, curX + 1, curY);
+            } else if (keycode == parent.rotateRightKey) {
+                tryMove(curPiece.rotateRight(), curX, curY);
+            } else if (keycode == parent.rotateLeftKey) {
+                tryMove(curPiece.rotateLeft(), curX, curY);
+            } else if (keycode == parent.dropDownKey) {
+                dropDown();
+            } else if (keycode == parent.oneLineDownKey) {
+                oneLineDown();
+            } else if (keycode == parent.holdBlockKey) {
+                holdBlock();
             }
         }
     }
 }
+
