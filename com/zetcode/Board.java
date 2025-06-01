@@ -3,7 +3,9 @@ package com.zetcode;
 import com.zetcode.Shape.Tetrominoe;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Container;
@@ -196,6 +198,9 @@ public class Board extends JPanel {
             var msg = String.format("Game over. Score: %d", numLinesRemoved);
             statusbar.setText(msg);
             
+            // 점수 저장
+            ScoreManager.saveScore(numLinesRemoved);
+            
             // 게임오버 3초 후 게임 오버 메시지 표시
             Timer gameOverWindows = new Timer(3000, new ActionListener() {
                 @Override
@@ -210,6 +215,9 @@ public class Board extends JPanel {
                     if (choice == JOptionPane.YES_OPTION) {            // 만약 '예'를 누르면 처음 화면으로 
                         ((Tetris) SwingUtilities.getWindowAncestor(Board.this)).showTitleScreen();
                     }
+                    
+                    numLinesRemoved = 0;
+                    statusbar.setText("0");//초기화
                 }
             });
 
