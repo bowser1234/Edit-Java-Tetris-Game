@@ -1,0 +1,10 @@
+{
+    "moveLeft": "VK_LEFT",
+    "moveRight": "VK_RIGHT",
+    "rotateRight": "VK_DOWN",
+    "rotateLeft": "VK_UP",
+    "dropDown": "VK_SPACE",
+    "oneLineDown": "VK_D",
+    "holdBlock": "VK_C",
+    "pause": "VK_P"
+}
