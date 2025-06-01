@@ -1,6 +1,9 @@
 package com.zetcode;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 
 public class TitleScreen extends JPanel {
@@ -39,9 +42,22 @@ public class TitleScreen extends JPanel {
         singleBtn.addActionListener(e -> parent.showGameScreen());
         secondPlayBtn.addActionListener(e -> parent.showGameScreen());
         loadBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "로드 기능은 아직 구현안 됨."));
-        scoreRecBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "점수 기록 아직 구현 안 됨."));
+        scoreRecBtn.addActionListener(new ActionListener() {
+        	
+            public void actionPerformed(ActionEvent e) {
+                ScoreManager.showScoreRecords(TitleScreen.this);
+            }
+        });
+
         optionBtn.addActionListener(e -> parent.showOptionScreen());            // 옵션 화면
-        exitBtn.addActionListener(e -> System.exit(0));
+        exitBtn.addActionListener(new ActionListener() {	
+        	
+            public void actionPerformed(ActionEvent e) {
+                ScoreManager.clearAllScores();
+                System.exit(0);
+            }
+        });
+
 
         for (JButton b : new JButton[]{singleBtn, secondPlayBtn, loadBtn, scoreRecBtn, optionBtn, exitBtn}) {
             b.setFont(new Font("Arial", Font.PLAIN, 18));
