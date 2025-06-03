@@ -12,7 +12,7 @@ public class Resolution extends JPanel {
         label.setFont(new Font("Arial", Font.BOLD, 24));
         add(label, BorderLayout.NORTH);
 
-        String[] resolutions = {"800x600", "1024x768", "1280x720", "1920x1080"};
+        String[] resolutions = {"800x720", "1024x768", "1280x720", "1920x1080"};
         JComboBox<String> resolutionDropdown = new JComboBox<>(resolutions);
         add(resolutionDropdown, BorderLayout.CENTER);
 
