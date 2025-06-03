@@ -40,7 +40,7 @@ public class TitleScreen extends JPanel {
         JButton exitBtn = new JButton("Exit");
 
         singleBtn.addActionListener(e -> parent.showGameScreen());
-        secondPlayBtn.addActionListener(e -> parent.showGameScreen());
+        secondPlayBtn.addActionListener(e -> parent.showBattleScreen());
         loadBtn.addActionListener(e -> JOptionPane.showMessageDialog(this, "로드 기능은 아직 구현안 됨."));
         scoreRecBtn.addActionListener(new ActionListener() {
         	
