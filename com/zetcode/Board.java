@@ -19,7 +19,7 @@ import java.awt.event.KeyEvent;
 public class Board extends JPanel {
 
     private final int BOARD_WIDTH = 10;
-    private final int BOARD_HEIGHT = 22;
+    private final int BOARD_HEIGHT = 20;
     private final int PERIOD_INTERVAL = 300;
 
     private Timer timer;
@@ -47,8 +47,8 @@ public class Board extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         // 게임 보드의 고정 크기를 1:2로
-        int width = BOARD_WIDTH * 22;
-        int height = BOARD_HEIGHT * 22;
+        int width = BOARD_WIDTH * 24;
+        int height = BOARD_HEIGHT * 24;
         return new Dimension(width, height);
     }
 
