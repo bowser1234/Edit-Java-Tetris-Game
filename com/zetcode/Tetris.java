@@ -33,6 +33,8 @@ public class Tetris extends JFrame {
 
         TitleScreen titleScreen = new TitleScreen(this);
         GameScreen gameScreen = new GameScreen(this);
+        BattleTetris BattleTetris = new BattleTetris(this);
+        
         OptionScreen optionScreen = new OptionScreen(this);
         Resolution resolutionScreen = new Resolution(this);
         KeyMappingScn keyMappingScn = new KeyMappingScn(this);
@@ -40,6 +42,8 @@ public class Tetris extends JFrame {
 
         mainPanel.add(titleScreen, "Title");
         mainPanel.add(gameScreen, "Game");
+        mainPanel.add(BattleTetris, "2P Game");
+        
         mainPanel.add(optionScreen, "Option");
         mainPanel.add(resolutionScreen, "Resolution");
         mainPanel.add(keyMappingScn, "KeyMapping");
@@ -74,6 +78,14 @@ public class Tetris extends JFrame {
     public void showGameScreen() {
         cardLayout.show(mainPanel, "Game");
         ((GameScreen) mainPanel.getComponent(1)).startGame();
+    }
+
+    // 2P 게임 시작
+    public void showBattleScreen() {
+        setTitle("2P Game"); // 🚀 Tetris에서 설정
+
+        mainPanel.add(new BattleTetris(this), "2P Game");
+        cardLayout.show(mainPanel, "2P Game");
     }
 
     // 옵션 화면
